@@ -1,12 +1,26 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-view/>
+      <Sidebar/>
     </div>
-    <router-view />
   </div>
 </template>
+<script>
+import LogIn from "./components/LogIn";
+import userService from "./services/UserService";
+import Sidebar from "./components/Sidebar";
+import ListOfTodos from "./components/ListOfTodos";
+
+export default {
+  name: "app",
+  components: {
+    LogIn,
+    Sidebar
+  }
+};
+</script>
+
 
 <style>
 #app {
