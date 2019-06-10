@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="todo in allTodos" v-bind:key="todo._id">
-      <TodoItem :todo="todo"/>
+      <TodoItem @delete="deleteTodo($event)" :todo="todo"/>
     </div>
     <router-link to="/addtask">Add Task!</router-link>
   </div>
@@ -23,6 +23,15 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => vm.$store.dispatch("todos/fetchTodos"));
+  },
+  methods: {
+    async deleteTodo(todoId) {
+      try {
+        await this.$store.dispatch("todos/removeTodo", todoId);
+      } catch (err) {
+        console.log("nesto ne valja");
+      }
+    }
   }
 };
 </script>

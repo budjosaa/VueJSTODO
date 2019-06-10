@@ -4,7 +4,7 @@
       <router-link v-if="!loggedIn" to="/login">LogIn</router-link>
       <router-link v-if="!loggedIn" to="/register">Register</router-link>
     </div>
-    <button v-else v-on:click="logout">LogOut</button>
+    <button v-else @click="logout">LogOut</button>
   </div>
 </template>
 <script>

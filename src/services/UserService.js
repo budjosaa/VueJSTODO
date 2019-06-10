@@ -1,6 +1,6 @@
 import Axios from "axios";
-
 const axios = require("axios");
+
 class UserService {
   constructor() {
     Axios.defaults.baseURL = "http://localhost:3000/api";
@@ -8,14 +8,17 @@ class UserService {
       "token"
     )}`;
   }
+  setAuthorization(token) {
+    localStorage.setItem("token", token);
+    Axios.defaults.headers.common["Authorization"] = `${token}`;
+  }
   async login(email, password) {
     try {
       const result = await axios.post("/auth/login ", {
         email,
         password
       });
-      localStorage.setItem("token", result.data.token);
-      Axios.defaults.headers.common["Authorization"] = `${result.data.token}`;
+      this.setAuthorization(result.data.token);
       return result.data;
     } catch (err) {
       throw err;
@@ -28,8 +31,7 @@ class UserService {
         password,
         username
       });
-      localStorage.setItem("token", result.data.token);
-      Axios.defaults.headers.common["Authorization"] = `${result.data.token}`;
+      this.setAuthorization(result.data.token);
       return result.data;
     } catch (err) {
       throw err;

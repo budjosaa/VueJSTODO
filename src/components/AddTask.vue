@@ -6,7 +6,7 @@
     <p>Description:</p>
     <input type="text" v-model="description">
     <br>
-    <button v-on:click="addTask">Add task!</button>
+    <button @click="addTask">Add task!</button>
   </div>
 </template>
 <script>
