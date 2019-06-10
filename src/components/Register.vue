@@ -1,26 +1,25 @@
 <template>
   <div>
-    <table>
-      <th>Username:</th>
-      <tr>
-        <input type="text" v-model="username">
-      </tr>
-      <th>Email:</th>
-      <tr>
-        <input type="text" v-model="email">
-      </tr>
-      <th>Password:</th>
-      <tr>
-        <input type="password" v-model="password">
-      </tr>
-      <th>
-        <button v-on:click="register(email,password,username)">Register</button>
-      </th>
-    </table>
+    <p>Username:</p>
+
+    <input type="text" v-model="username">
+
+    <p>Email:</p>
+
+    <input type="text" v-model="email">
+
+    <p>Password:</p>
+
+    <input type="password" v-model="password">
+    <br>
+
+    <button v-on:click="register">Register</button>
+
+    <p>{{registrationError}}</p>
   </div>
 </template>
 <script>
-import userService from "../services/UserService";
+import { mapGetters } from "vuex";
 export default {
   name: "Register",
   data() {
@@ -30,12 +29,18 @@ export default {
       username: ""
     };
   },
+  computed: {
+    ...mapGetters("users", {
+      registrationError: "getReistrationError"
+    })
+  },
+
   methods: {
-    register: async function(email, password, username) {
+    async register() {
       await this.$store.dispatch("users/registerUser", {
-        email: email,
-        password: password,
-        username: username
+        email: this.email,
+        password: this.password,
+        username: this.username
       });
       this.$router.push("/todos");
     }

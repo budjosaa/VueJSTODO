@@ -7,15 +7,11 @@
   </div>
 </template>
 <script>
-import LogIn from "./components/LogIn";
-import userService from "./services/UserService";
 import Sidebar from "./components/Sidebar";
-import ListOfTodos from "./components/ListOfTodos";
 
 export default {
   name: "app",
   components: {
-    LogIn,
     Sidebar
   }
 };

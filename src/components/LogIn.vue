@@ -1,23 +1,20 @@
 <template>
   <div>
-    <table>
-      <th>Email:</th>
-      <tr>
-        <input type="text" v-model="email">
-      </tr>
-      <th>Password:</th>
-      <tr>
-        <input type="password" v-model="password">
-      </tr>
-      <tr>
-        <button v-on:click="logIn(email,password)">Log In</button>
-      </tr>
-    </table>
+    <form>
+      <p>Email:</p>
+      <input name="email" v-validate="'required'" type="text" v-model="email">
+      <br>
+      <p>Password:</p>
+      <input name="password" v-validate="'required|min:6'" type="password" v-model="password">
+      <br>
+      <button @click.prevent="logIn">Log In</button>
+      <p>{{loginError}}</p>
+    </form>
   </div>
 </template>
 <script>
-import userService from "../services/UserService";
 import { async } from "q";
+import { mapGetters } from "vuex";
 
 export default {
   name: "LogIn",
@@ -27,11 +24,17 @@ export default {
       password: ""
     };
   },
+  computed: {
+    ...mapGetters("users", {
+      loginError: "getLoginError"
+    })
+  },
+
   methods: {
-    logIn: async function(email, password) {
+    async logIn() {
       await this.$store.dispatch("users/logInUser", {
-        email: email,
-        password: password
+        email: this.email,
+        password: this.password
       });
       this.$router.push("/todos");
     }
