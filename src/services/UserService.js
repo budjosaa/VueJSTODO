@@ -16,6 +16,7 @@ class UserService {
       });
       localStorage.setItem("token", result.data.token);
       Axios.defaults.headers.common["Authorization"] = `${result.data.token}`;
+      return result.data;
     } catch (err) {
       throw err;
     }
@@ -29,6 +30,7 @@ class UserService {
       });
       localStorage.setItem("token", result.data.token);
       Axios.defaults.headers.common["Authorization"] = `${result.data.token}`;
+      return result.data;
     } catch (err) {
       throw err;
     }
@@ -38,6 +40,14 @@ class UserService {
   }
   isLoggedIn() {
     return !!localStorage.getItem("token");
+  }
+  async fetchUserData() {
+    try {
+      const result = await axios.get("auth/me");
+      return result.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 export default new UserService();

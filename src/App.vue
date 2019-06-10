@@ -13,6 +13,9 @@ export default {
   name: "app",
   components: {
     Sidebar
+  },
+  mounted() {
+    this.$store.dispatch("users/fetchUser");
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="(todo,index) in allTodos" v-bind:key="index">
-      <TodoItem :title="todo.title" :description="todo.description" :todoId="todo._id"/>
+    <div v-for="todo in allTodos" v-bind:key="todo._id">
+      <TodoItem :todo="todo"/>
     </div>
     <router-link to="/addtask">Add Task!</router-link>
   </div>

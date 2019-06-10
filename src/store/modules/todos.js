@@ -20,6 +20,7 @@ const actions = {
       .removeTodo(todoId)
       .then(res => {
         commit("deleteTodo", res.data);
+        return res.data;
       })
       .catch(err => {
         console.log(err);
@@ -40,9 +41,10 @@ const actions = {
       .addTodo(data)
       .then(res => {
         commit("addTodo", res.data);
+        return res.data;
       })
       .catch(err => {
-        console.log(err);
+        throw err;
       });
   }
 };

@@ -42,7 +42,7 @@ export default {
         password: this.password,
         username: this.username
       });
-      this.$router.push("/todos");
+      this.$router.push({ name: "todos" });
     }
   }
 };

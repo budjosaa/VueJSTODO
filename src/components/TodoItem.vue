@@ -1,17 +1,21 @@
 <template>
   <div>
-    <h3>{{title}}</h3>
-    <p>{{description}}</p>
+    <h3>{{todo.title}}</h3>
+    <p>{{todo.description}}</p>
     <button v-on:click="deleteTodo">Delete</button>
   </div>
 </template>
 <script>
 export default {
-  props: ["title", "description", "todoId"],
+  props: { todo: { type: Object, required: true } },
   name: "TodoItem",
   methods: {
-    deleteTodo: async function() {
-      await this.$store.dispatch("todos/removeTodo", this.todoId);
+    async deleteTodo() {
+      try {
+        await this.$store.dispatch("todos/removeTodo", this.todo._id);
+      } catch (err) {
+        console.log("nesto ne valja");
+      }
     }
   }
 };

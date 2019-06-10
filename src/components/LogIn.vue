@@ -13,7 +13,6 @@
   </div>
 </template>
 <script>
-import { async } from "q";
 import { mapGetters } from "vuex";
 
 export default {
@@ -31,12 +30,13 @@ export default {
   },
 
   methods: {
-    async logIn() {
-      await this.$store.dispatch("users/logInUser", {
-        email: this.email,
-        password: this.password
-      });
-      this.$router.push("/todos");
+    logIn() {
+      this.$store
+        .dispatch("users/logInUser", {
+          email: this.email,
+          password: this.password
+        })
+        .then(res => this.$router.push({ name: "todos" }));
     }
   }
 };

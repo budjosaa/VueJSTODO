@@ -1,18 +1,12 @@
 <template>
   <div>
-    <table>
-      <th>Title:</th>
-      <tr>
-        <input type="text" v-model="title">
-      </tr>
-      <th>Description:</th>
-      <tr>
-        <input type="text" v-model="description">
-      </tr>
-      <tr>
-        <button v-on:click="addTask(title,description)">Add task!</button>
-      </tr>
-    </table>
+    <p>Title:</p>
+    <input type="text" v-model="title">
+    <br>
+    <p>Description:</p>
+    <input type="text" v-model="description">
+    <br>
+    <button v-on:click="addTask">Add task!</button>
   </div>
 </template>
 <script>
@@ -26,12 +20,12 @@ export default {
     };
   },
   methods: {
-    addTask: async function(title, description) {
+    async addTask() {
       await this.$store.dispatch("todos/createTodo", {
-        title: title,
-        description: description
+        title: this.title,
+        description: this.description
       });
-      this.$router.push("/todos");
+      this.$router.push({ name: "todos" });
     }
   }
 };
